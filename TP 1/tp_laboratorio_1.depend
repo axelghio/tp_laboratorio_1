@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1553091454 source:e:\facultad axel\tp_laboratorio_1\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1553127105 source:e:\facultad\tp_laboratorio_1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+
+1553557506 source:e:\facultad\programacionylaboratorio\tp_laboratorio_1\storm.c
+
+1553549441 source:e:\facultad\programacionylaboratorio\tp_laboratorio_1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"storm.h"
+
+1553557486 e:\facultad\programacionylaboratorio\tp_laboratorio_1\storm.h
+
+1554330801 source:c:\users\axel\documents\github\tp_laboratorio_1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"AxelUTN.h"
+
+1553652849 c:\users\axel\documents\github\tp_laboratorio_1\storm.h
+
+1553652857 source:c:\users\axel\documents\github\tp_laboratorio_1\storm.c
+	<stdio.h>
+	<stdint.h>
+
+1554330608 source:c:\users\axel\documents\github\tp_laboratorio_1\axelutn.c
+	<stdio.h>
+	<stdint.h>
+
+1554047143 c:\users\axel\documents\github\tp_laboratorio_1\axelutn.h
+
