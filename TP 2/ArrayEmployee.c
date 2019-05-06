@@ -14,7 +14,9 @@ int menuPrincipal()
     printf("2.- DAR DE BAJA UN EMPLEADO.\n");
     printf("3.- MODIFICAR UN EMPLEADO.\n");
     printf("4.- LISTAR EMPLEADOS.\n");
-    printf("5.- SALIR.\n");
+    printf("5.- MOSTRAR TOTAL SALARIOS Y PROMEDIO.\n");
+    printf("6.- ORDENAR EMPLEADOS.\n");
+    printf("7.- SALIR.\n");
     printf("\nOPCION: ");
     fflush(stdin);
     scanf("%d",&opcion);
@@ -50,11 +52,6 @@ int buscarEspacio(eEmployee* empleado, int tam)
     int index=-1;
     for(int i = 0; i<tam; i++)
     {
-        /*if(i>= tam)
-        {
-            printf("NO HAY ESPACIO EN EL SISTEMA PARA AGREGAR UN NUEVO EMPLEADO.\n");
-            system("pause");
-        }*/
         if(empleado[i].isEmpty==LIBRE)
         {
             index=i;
@@ -64,7 +61,7 @@ int buscarEspacio(eEmployee* empleado, int tam)
     }
     return index;
 }
-int cantidadEmpleados(eEmployee* empleado, int tam)
+int verificarEmpleados(eEmployee* empleado, int tam)
 {
     int index=0;
     for(int i = 0; i<tam; i++)
@@ -176,16 +173,16 @@ void removeEmployee(eEmployee* empleado, int tam)
 
 }
 
-/////////********//////////////
+//////////////****HARDCODEO****//////////////
 void eGenerica_hardCode(eEmployee* pGenerica)
 {
     int i;
 
-    int hardcode_ID[5]={100,101,102,103,104};
-    char hardcode_NAME[5][51]={"Juan","Carlos", "Belen", "Mathias", "Adrian"};
-    char hardcode_LASTNAME[5][51]={"Bautista","Zarate", "Damiano", "Bustamante", "Lopez"};
-    float hardcode_SALARY[5]={15200.5,10100.75,12700.50,20700.25,14300.20};
-    int hardcode_SECTOR[5]={3,5,6,8,1};
+    int hardcode_ID[5]= {100,101,102,103,104};
+    char hardcode_NAME[5][51]= {"Juan","Carlos", "Belen", "Mathias", "Adrian"};
+    char hardcode_LASTNAME[5][51]= {"Bautista","Zarate", "Damiano", "Bustamante", "Lopez"};
+    float hardcode_SALARY[5]= {15200.5,10100.75,12700.50,20700.25,14300.20};
+    int hardcode_SECTOR[5]= {3,5,6,8,1};
 
     for(i=0; i<5; i++)
     {
@@ -197,7 +194,7 @@ void eGenerica_hardCode(eEmployee* pGenerica)
         pGenerica[i].isEmpty=OCUPADO;
     }
 }
-/////////********//////////////
+//////////////****FIN-HARCODEO****//////////////
 
 int modifyEmployee(eEmployee* empleado, int tam)
 {
@@ -267,7 +264,8 @@ int modifyEmployee(eEmployee* empleado, int tam)
                         printf("INGRESE UNA OPCION CORRECTA\n");
                         system("pause");
                     }
-                }while(flag == 0);
+                }
+                while(flag == 0);
             }
         }
     }
@@ -282,12 +280,17 @@ void listarEmpleado(eEmployee* empleado, int tam)
 
 void mostrarEmpleado(eEmployee* empleado, int tam, int id)
 {
-    printf("%d\t\t%s \t\t %s \t\t %.2f \t\t %d\n", empleado[id].id, empleado[id].lastName, empleado[id].name, empleado[id].salary, empleado[id].sector);
+    printf("%1d", empleado[id].id);
+    printf("%20s", empleado[id].lastName);
+    printf("%20s", empleado[id].name);
+    printf("%20.2f", empleado[id].salary);
+    printf("%10d", empleado[id].sector);
+    printf("\n");
 }
 
 void mostrarEmpleados(eEmployee* empleado, int tam)
 {
-    printf("\nID\t\tAPELLIDO\t\tNOMBRE\t\tSALARIO\t\tSECTOR\n");
+    printf("\nID\t\tAPELLIDO\t      NOMBRE\t\tSALARIO\t\tSECTOR\n");
     for(int i = 0; i<tam; i++)
     {
         if(empleado[i].isEmpty==OCUPADO)
@@ -295,4 +298,87 @@ void mostrarEmpleados(eEmployee* empleado, int tam)
             mostrarEmpleado(empleado, tam, i);
         }
     }
+}
+int shortEmployees(eEmployee* empleado, int tam, int orden)
+{
+    eEmployee auxEmployee;
+    int ordenarOK=0;
+    switch(orden)
+    {
+    case 0:
+        for(int i = 0; i< tam -1; i ++)
+        {
+            for(int j = i +1; j<tam; j++)
+            {
+                if(strcmp(empleado[i].lastName,empleado[j].lastName)<0)
+                {
+                    auxEmployee = empleado[i];
+                    empleado[i] = empleado[j];
+                    empleado[j] = auxEmployee;
+                }
+                else if(strcmp(empleado[i].lastName,empleado[j].lastName)==0 && empleado[i].sector<empleado[j].sector)
+                {
+                    auxEmployee = empleado[i];
+                    empleado[i] = empleado[j];
+                    empleado[j] = auxEmployee;
+                }
+            }
+        }
+        mostrarEmpleados(empleado,tam);
+        ordenarOK = 1;
+        break;
+    case 1:
+        for(int i = 0; i< tam -1; i ++)
+        {
+            for(int j = i +1; j<tam; j++)
+            {
+                if(strcmp(empleado[i].lastName,empleado[j].lastName)>0)
+                {
+                    auxEmployee = empleado[i];
+                    empleado[i] = empleado[j];
+                    empleado[j] = auxEmployee;
+                }
+                else if(strcmp(empleado[i].lastName,empleado[j].lastName)==0 && empleado[i].sector>empleado[j].sector)
+                {
+                    auxEmployee = empleado[i];
+                    empleado[i] = empleado[j];
+                    empleado[j] = auxEmployee;
+                }
+            }
+        }
+        mostrarEmpleados(empleado,tam);
+        ordenarOK = 1;
+        break;
+    }
+    return ordenarOK;
+}
+void listarTotalYpromedioSalarios(eEmployee* empleado, int tam)
+{
+    int contSalarios = 0;
+    int contEmpPasanSalario = 0;
+    float totalSalarios;
+    float promedioSalarios;
+    for(int i = 0; i< tam; i++)
+    {
+        if(empleado[i].isEmpty == OCUPADO)
+        {
+            contSalarios++;
+            totalSalarios = totalSalarios + empleado[i].salary;
+        }
+    }
+    promedioSalarios = totalSalarios / contSalarios;
+    for(int i = 0; i<tam; i++)
+    {
+        if(empleado[i].isEmpty == OCUPADO)
+        {
+            if(empleado[i].salary < promedioSalarios)
+            {
+                contEmpPasanSalario++;
+            }
+        }
+    }
+    system("cls");
+    printf("EL TOTA DE SALARIOS ES: '%.2f'.\n",totalSalarios);
+    printf("EL PROMEDIO DE LOS SALARIOS ES DE: '%.2f'.\n",promedioSalarios);
+    printf("LA CANTIDAD DE EMPLEADOS QUE SUPERAN EL SALARIO PROMEDIO ES: '%d'.\n",contEmpPasanSalario);
 }

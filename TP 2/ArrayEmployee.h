@@ -85,7 +85,14 @@ int menuModifica();
  */
 int buscarEspacio(eEmployee* empleado, int tam);
 
-int cantidadEmpleados(eEmployee* empleado, int tam);
+/** \brief                      FUNCION QUE REALIZA UNA VERIFICACION PARA SABER SI HAY EMPLEADO DADO DE ALTA.
+ *
+ * \param empleado eEmployee*   PUNTERO AL ARRAY DEL TIPO EMPLEADO.
+ * \param tam int               TAMAÑO DEL ARRAY.
+ * \return int                  DEVUELVE 1 SI HAY 0 SINO HAY NINGUN EMPLEADO.
+ *
+ */
+int verificarEmpleados(eEmployee* empleado, int tam);
 
 /** \brief
  *
@@ -97,7 +104,7 @@ int cantidadEmpleados(eEmployee* empleado, int tam);
  */
 int findEmployeeById(eEmployee* empleado, int tam, int id);
 
-/** \brief
+/** \brief                      FUNCION QUE MUESTRA UN EMPLEADO.
  *
  * \param empleado eEmployee*   PUNTERO AL ARRAY DEL TIPO EMPLEADO.
  * \param tam int               TAMAÑO DEL ARRAY.
@@ -106,7 +113,7 @@ int findEmployeeById(eEmployee* empleado, int tam, int id);
  */
 void mostrarEmpleado(eEmployee* empleado, int tam, int id);
 
-/** \brief
+/** \brief                      FUNCION QUE MUESTRA UNA LISTA DE TODOS LOS EMPLEADOS EN EL SISTEMA.
  *
  * \param empleado eEmployee*   PUNTERO AL ARRAY DEL TIPO EMPLEADO.
  * \param tam int               TAMAÑO DEL ARRAY.
@@ -114,4 +121,23 @@ void mostrarEmpleado(eEmployee* empleado, int tam, int id);
  *
  */
 void mostrarEmpleados(eEmployee* empleado, int tam);
+
+/** \brief                      FUNCION ORDENA Y LISTA SEGUN EL ORDEN QUE PIDA EL USUARIO.
+ *
+ * \param empleado eEmployee*   PUNTERO AL ARRAY DEL TIPO EMPLEADO.
+ * \param tam int               TAMAÑO DEL ARRAY.
+ * \param order int             REFERENCIA A LA OPCION QUE EL USUARIO VA A INGRESAR ( [1] indicate UP - [0] indicate DOWN ).
+ * \return int
+ *
+ */
+int shortEmployees(eEmployee* empleado, int tam, int order);
+
+/** \brief                      FUNCION QUE MUESTRA EL TOTAL DE SALARIOS EL PROMEDIO Y LA CANTIDAD DE EMPLEADOS POR ARRIBA DEL PROMEDIO.
+ *
+ * \param empleado eEmployee*   PUNTERO AL ARRAY DEL TIPO EMPLEADO.
+ * \param tam int               TAMAÑO DEL ARRAY.
+ * \return int                  NO RETORNA.
+ *
+ */
+void listarTotalYpromedioSalarios(eEmployee* empleado, int tam);
 #endif // ARRAYEMPLOYEE_H_INCLUDED
