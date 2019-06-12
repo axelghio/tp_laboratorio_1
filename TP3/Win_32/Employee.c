@@ -22,13 +22,13 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
     int ok = 0;
     if(newEmpleado != NULL)
     {
-        if(employee_setid(newEmpleado, atoi(idStr)))
+        if(employee_setId(newEmpleado, atoi(idStr)))
         {
-            if(employee_setnombre(newEmpleado, nombreStr))
+            if(employee_setNombre(newEmpleado, nombreStr))
             {
-                if(employee_setHorasTrabajadas(newEmpleado, horasTrabajadasStr))
+                if(employee_setHorasTrabajadas(newEmpleado, atoi(horasTrabajadasStr)))
                 {
-                    if(employee_setSueldo(newEmpleado, sueldoStr))
+                    if(employee_setSueldo(newEmpleado, atoi(sueldoStr)))
                     {
                         ok = 1;
                     }
@@ -44,11 +44,11 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
     return newEmpleado;
 }
 
-int employee_setid(Employee* this, int id)
+int employee_setId(Employee* this, int id)
 {
     int ok = 0;
 
-    if(this!= NULL && id != NULL)
+    if(this!= NULL)
     {
         this->id = id;
         ok = 1;
@@ -56,34 +56,35 @@ int employee_setid(Employee* this, int id)
     return ok;
 }
 
-int employee_setnombre(Employee* this, int nombre)
+int employee_setNombre(Employee* this, char* nombre)
 {
     int ok = 0;
 
     if(this!= NULL && nombre != NULL)
     {
+        strcpy(this->nombre, nombre);
         ok = 1;
     }
     return ok;
 }
 
-int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
+int employee_setHorasTrabajadas(Employee* this, int horasTrabajadas)
 {
     int ok = 0;
 
-    if(this!= NULL && horasTrabajadas != NULL)
+    if(this!= NULL)
     {
         this->horasTrabajadas=horasTrabajadas;
         ok = 1;
     }
     return ok;
 }
-///ESCRIBIR EN EL SUELDO.
+
 int employee_setSueldo(Employee* this, int sueldo)
 {
     int ok;
 
-    if(this!= NULL && sueldo != NULL)
+    if(this!= NULL)
     {
         this->sueldo = sueldo;
         ok = 1;
@@ -96,7 +97,7 @@ int employee_getId(Employee* this, int* id)
 
     if(this != NULL && id != NULL)
     {
-        this->id = id;
+        *id = this->id ;
         ok = 1;
     }
     return ok;
@@ -107,7 +108,7 @@ int employee_getNombre(Employee* this, char* nombre)
 
     if(this != NULL && nombre != NULL)
     {
-        strcpy(this->nombre, nombre);
+        strcpy(nombre, this->nombre);
         ok = 1;
     }
     return ok;
@@ -119,19 +120,19 @@ int employee_getHorasTrabajadas(Employee* this, int* horasTrabajadas)
 
     if(this != NULL && horasTrabajadas != NULL)
     {
-        this->horasTrabajadas = horasTrabajadas;
+        *horasTrabajadas = this->horasTrabajadas;
         ok = 1;
     }
     return ok;
 }
-///TRAEME SUELDO.
+
 int employee_getSueldo(Employee* this, int* sueldo)
 {
          int ok = 0;
 
     if(this != NULL && sueldo != NULL)
     {
-        this->sueldo = sueldo;
+        *sueldo = this->sueldo;
         ok = 1;
     }
     return ok;

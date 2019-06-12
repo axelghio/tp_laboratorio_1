@@ -32,22 +32,6 @@ float multiplicar(float numeroX, float numeroY);
  */
 unsigned long factorial(int numero);
 
-/** \brief                  PEDIR DATOS ENTEROS ANALIZARLOS VALIDARLOS Y MOSTRARLOS.
- * \param min int           DATO MINIMO A COMPARAR.
- * \param max int           DATO MAXIMO A COMPARAR.
- * \param dato int*         PUNTERO DATO.
- * \param intentos int      INTENTOS PARA REALIZAR OPERACION.
- * \param tipoDato char*    TIPO DE DATO A INGRESAR. Ejemplo: edad, numeros, letras, etc.
- * \param mensaje char*     MENSAJE A RECIBIR.
- * \param eMensaje char*    MENSAJE EN CASO DE ERROR.
- * \return int              DEVUELVE SI LA FUNCION FUNCIONO.
- */
-int getData(int min, int max, int* dato, int intentos, char* tipoDato, char* mensaje, char* eMensaje);
-
-/** \brief                  PEDIMOS UN MENSAJE Y EL INGRESO DE UN NUMERO ENTERO.
- * \param char* int         PUNTERO A CHAR QUE VA A SER EL MENSAJE QUE VAMOS A MOSTAR.
- * \return int              DEVUELVE EL ENTERO.
- */
 int getInt(char* mensaje);
 
 /** \brief                  PIDE UN FLOAT Y LO DEVUELVE
@@ -62,37 +46,65 @@ float getFloat(char* mensaje);
  */
 char getChar(char* mensaje);
 
-/** \brief                  PEDIMOS UN NUMERO VALIDAMOS QUE NO SEA O CONTENGA LETRAS.
+
+
+/** \brief                  FUNCION QUE VALIDA ENTRADA DE NUMEROS.
  *
- * \param cadena char*      PUNTERO A CADENA DONDE NOS INGRESARA LOS DATOS A ANALIZAR.
- * \return int              DEVUELVE SI FUNCIONO LA OPERACION.
+ * \param pBuffer char*     PEDIMOS UNA CADENA DE CHAR.
+ * \return int              RETORNA VALIDACION.
  *
  */
-int esNumerico(char cadena[]);
+int validarNumeroConSignos(char* pBuffer);
+
+/** \brief                  PEDIMOS UN FLOAT Y VALIDAMOS QUE SEA POSITIVO.
+ *
+ * \param MSJ const char*   PEDIMOS UN MENSAJE A MOSTRAR.
+ * \return float            RETORNA VALIDACION.
+ *
+ */
+float getFloatPositivo(const char* MSJ);
+
+/** \brief                  PEDIMOS UNA LETRA Y VERIFICAMOS QUE SOLO LEA UNA LETRA.
+ *
+ * \param letra char*       VARIABLE QUE CONTIENE EL CHAR.
+ * \return  int             DEVUELVE ESTA DE LA OPERACION (1 SI CONTIENE LETRAS, 0 SI NO CONTIENE).
+ *
+ */
+int esLetra(char* letras);
 
 /** \brief                  VALIDA QUE SOLO SEAN LETRAS LAS INGRESADAS.
- *
- * \param cadena[] char     RECIBE UN PUNTERO A CADENA CON LA INFO DEL USUARIO.
+ * \param cadena* char      RECIBE UN PUNTERO A CADENA CON LA INFO DEL USUARIO.
  * \return int              DEVUELVE SI SE PUDO REALIZAR ACCION.
- *
  */
-int esSoloLetras(char cadena[]);
+int esCadena(char* cadena);
 
-/** \brief                  VALIDA SI SE INGRESA ALFA NUMERICOS.
- *
- * \param cadena[] char     RECIBE UN PUNTERO A CADENA CON LA INFO DEL USUARIO.
- * \return int              DEVUELVE SI PUDO REALIZAR ACCION.
- *
- */
-int esAlfaNumerico(char cadena[]);
 
-/** \brief                  VALIDA SI ES TELEFONO.
+/** \brief                  PIDE HASTA QUE EL DATO SEA CORRECTO.
  *
- * \param cadena[] char     RECIBE UN PUNTERO A CADENA CON LA INFO DEL USUARIO.
- * \return int              DEVUELVE SI REALIZO OPERACION.
+ * \param dato char*        RECIBE UN PUNTERO A CADENA CON LA INFO DEL USUARIO.
+ * \param texto char*       RECIBE UN PUNTERO A CADENA CON TEXTO A MOSTRAR POR EJEMPLO (NOMBRE, APELLIDO, DIRECCION, ETC.
+ * \return int              DEVUELVE VALIDANDO LA ENTRADA DE ESE TIPO DE DATO QUE QUEREMOS 0 SI SON SOLO DATOS 1 SI TIENE ERROR.
  *
  */
-int esTelefono(char cadena[]);
+int esDato(char* dato, char* texto);
+
+int getNombre(char* dato, char* msj);
+
+char esDatoSexo(char* texto);
+
+int esTelefono(char* dato, char* texto);
+
+int esDatoEmail(char* dato, char* texto);
+
+int esDia(char* texto);
+
+int esMes(char* texto);
+
+int esAnio(char* texto);
+
+int esNumero(char* numeros);
+
+int esNumerico(char* numeros, char* texto);
 
 /** \brief                  ORDENA UN ARRAY
  *

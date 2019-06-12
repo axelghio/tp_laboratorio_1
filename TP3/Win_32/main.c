@@ -23,56 +23,118 @@
 int main()
 {
     LinkedList* listaEmpleados = ll_newLinkedList();
-    char opcionSwitch = 's';
-    char salirCase = 's';
+    char opcionSwitch = 'n';
 
     do{
         switch(menu())
         {
             case 1:
-                if(controller_loadFromText("data.csv", listaEmpleados)==0)
-                {
-                    printf("NO SE PUDO CARGAR LA LISTA.\n");
-                    system("pause");
-                }
-                else
+                if(controller_loadFromText("data.csv", listaEmpleados))
                 {
                     printf("SE CARGO EXITOSAMENTE LA LISTA.\n");
                     system("pause");
                 }
+                else
+                {
+                    printf("NO SE PUDO CARGAR LA LISTA.\n");
+                    system("pause");
+                }
                 break;
             case 2:
-                controller_loadFromBinary("data.bin", listaEmpleados);
+                if(controller_loadFromBinary("data.bin", listaEmpleados))
+                {
+                    printf("SE CARGO EXITOSAMENTE LA LISTA.\n");
+                    system("pause");
+                }
+                else
+                {
+                    printf("NO SE PUDO CARGAR LA LISTA.\n");
+                    system("pause");
+                }
+                break;
+            case 3:
+                system("cls");
+                if(controller_addEmployee(listaEmpleados))
+                {
+                    printf("SE REALIZO EXITOSAMENTE EL ALTA.\n");
+                    system("pause");
+                }
+                else
+                {
+                    printf("NO SE PUDO REALIZAR EL ALTA.\n");
+                    system("pause");
+                }
+                break;
+            case 4:
+                if(controller_editEmployee(listaEmpleados))
+                {
+                    printf("SE REALIZO EXITOSAMENTE LA MODIFICACION.\n");
+                    system("pause");
+                }
+                break;
+            case 5:
+                if(controller_removeEmployee(listaEmpleados)==1)
+                {
+                    printf("SE REALIZO EXITOSAMENTE LA BAJA.\n");
+                    system("pause");
+                }
+                else
+                {
+                    printf("NO SE HA PODIDO REALIZAR LA BAJA.\n");
+                    system("pause");
+                }
                 break;
             case 6:
                 controller_ListEmployee(listaEmpleados);
+                system("pause");
+                system("cls");
+                break;
+            case 7:
+                if(controller_sortEmployee(listaEmpleados))
+                {
+                    printf("SE REALIZO EXITOSAMENTE EL ORDENAMIENTO DE LA LISTA.\n");
+                    system("pause");
+                }
+                else
+                {
+                    printf("NO SE HA PODIDO ORDENAR LA LISTA.\n");
+                    system("pause");
+                }
+                break;
+            case 8:
+                if(controller_saveAsText("data.csv", listaEmpleados))
+                {
+                    printf("SE GUARDO EXITOSAMENTE LA LISTA EN TEXTO.\n");
+                    system("pause");
+                }
+                else
+                {
+                    printf("NO SE PUDO GUARDAR LA LISTA EN TEXTO.\n");
+                    system("pause");
+                }
+                break;
+            case 9:
+                if(controller_saveAsBinary("data.bin", listaEmpleados))
+                {
+                    printf("SE GUARDO EXITOSAMENTE LA LISTA EN BINARIO.\n");
+                    system("pause");
+                }
+                else
+                {
+                    printf("NO SE PUDO GUARDAR LA LISTA EN BINARIO.\n");
+                    system("pause");
+                }
                 break;
             case 10:
-                printf("DESEAS SALIR");
-                while(salirCase != 'n' || salirCase != 's')
+                opcionSwitch = getChar("DESEA SALIR 'S' o N : ");
                 {
-                    printf("INGRESE 'N' o 'S': ");
-                    fflush(stdin);
-                    scanf("%c", &salirCase);
-                    salirCase = tolower(salirCase);
-                    if(salirCase != 's' && salirCase != 'n')
+                    if ( opcionSwitch == 's')
                     {
-                        printf("ERROR, OPCION INCORRECTA.\n");
-                        system("pause");
-                    }
-                    if(salirCase == 's')
-                    {
-                        break;
-                    }
-                    if(salirCase == 'n')
-                    {
-                        salirCase = 'n';
                         break;
                     }
                 }
             break;
         }
-        printf("%c",&opcionSwitch);
-    }while(opcionSwitch == 's');
+    }while(opcionSwitch == 'n');
     return 0;
 }

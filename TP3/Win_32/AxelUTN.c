@@ -50,35 +50,6 @@ unsigned long factorial(int numero)
     }
     return fact;
 }
-int getData(int min, int max, int* dato, int intentos, char* tipoDato, char* mensaje, char* eMensaje)
-{
-    int aux;
-    int contador;
-    int ok = 0;
-
-    printf("%s %s entre: %d y %d : ", mensaje, tipoDato, min, max);
-    scanf("%d", &aux);
-
-    while((aux<min || aux>max) && contador < intentos)
-    {
-        contador++;
-        //fflush(stdin);
-
-        if(contador == intentos)
-        {
-            break;
-        }
-        printf("%s %d y %d.\n\n", eMensaje, min, max);
-        printf("%s %s entre: %d y %d : ", mensaje, tipoDato, min, max);
-        scanf("%d", &aux);
-    }
-    if(contador < intentos)
-    {
-        *dato = aux;
-        ok = 1;
-    }
-    return ok;
-}
 int getInt(char* mensaje)
 {
     int aux;
@@ -102,91 +73,350 @@ char getChar(char* mensaje)
     char aux;
     printf("%s",mensaje);
     scanf("%c",&aux);
+    aux = tolower(aux);
     return aux;
 }
 
-int esNumerico(char cadena[])
+int validarNumeroConSignos(char* pBuffer)
 {
-    int sePudo=0;
     int i=0;
+    int j;
+    int retornoValidacion=0;
+    int acumuladorSignos=0;
+    int acumuladorSignosNegativos=0;
 
-    while(cadena[i]!='\0')
+    j=strlen(pBuffer);
+
+    while (i<j && retornoValidacion==0)
     {
-        if(cadena[i]<'0' || cadena[i]>'9')
+        if (isdigit(pBuffer[i])!=0||pBuffer[i]=='.'||pBuffer[i]==','||pBuffer[i]=='-')
         {
-            sePudo=0;
+            if(pBuffer[i]=='.'||pBuffer[i]==',')
+            {
+                acumuladorSignos++;
+            }
+            if (pBuffer[i]=='-')
+            {
+                acumuladorSignosNegativos++;
+            }
+            if(acumuladorSignos>1||acumuladorSignosNegativos>1)
+            {
+                retornoValidacion=1;
+                break;
+            }
+            i++;
         }
         else
         {
-            sePudo=1;
+            retornoValidacion=1;
         }
-        i++;
     }
-    return sePudo;
+    return retornoValidacion;
 }
-int esSoloLetras(char cadena[])
-{
-    int sePudo=0;
-    int i=0;
 
-    while(cadena[i]!='\0')
+float getFloatPositivo(const char* MSJ)
+{
+
+    float valorFlotante;
+    char buffer[30];
+
+    do
     {
-        if((cadena[i]!=' ')&&(cadena[i]<'a' || cadena[i]>'z')&&(cadena[i]<'A'||cadena[i]>'Z'))
+        printf("INGRESE %s : ", MSJ);
+        fflush(stdin);
+        gets(buffer);
+
+        while(validarNumeroConSignos(buffer)==1)
         {
-            sePudo=0;
+            printf("[ERROR] REINGRESE NUMERO: ");
+            fflush(stdin);
+            gets(buffer);
+            system("cls");
+        }
+
+        valorFlotante=atof(buffer);
+
+        if(valorFlotante<0)
+        {
+            puts("[ERROR] VALOR SOLO POSITIVO\n");
+            system("pause");
+            system("cls");
+        }
+
+    }
+    while(valorFlotante<0);
+
+    return valorFlotante;
+}
+
+int esLetra(char* letras)
+{
+    return esCadena(letras);
+}
+int esCadena(char* cadena)
+{
+    int i=0;
+    int j;
+    int realizoValidacion=1;
+
+    j=strlen(cadena);
+
+    while(i<j && realizoValidacion == 1)
+    {
+        if(isalpha(cadena[i])!=0)
+        {
+            i++;
         }
         else
         {
-            sePudo=1;
+            realizoValidacion = 0;
+            break;
         }
-        i++;
     }
-
-    return sePudo;
+    return realizoValidacion;
 }
-int esAlfaNumerico(char cadena[])
-{
-    int sePudo=0;
-    int i=0;
 
-    while(cadena[i]!='\0')
+int getNombre(char* dato, char* msj)
+{
+    char buffer[1000];
+    int retorno = 0;
+
+    printf("%s", msj);
+    fflush(stdin);
+    gets(buffer);
+    if(esCadena(buffer))
     {
-        if((cadena[i]!=' ')&&(cadena[i]<'a' || cadena[i]>'z')&&(cadena[i]<'A'||cadena[i]>'Z')&&(cadena[i]<'0' || cadena[i]>'9'))
+        strcpy(dato, buffer);
+        retorno = 1;
+    }
+    else
+    {
+        printf("ERROR. SOLO LETRAS\n");
+        system("pause");
+        system("cls");
+    }
+    return retorno;
+}
+
+/********************** PARA ABM **********************/
+
+int esDato(char* dato, char* texto)
+{
+    int esDatoExito = 0;
+    do
+    {
+        printf("INGRESE %s :", texto);
+        fflush(stdin);
+        gets(dato);
+        if(esCadena(dato)==0)
         {
-            sePudo=0;
+            printf("RE ");
+        }
+        esDatoExito = 1;
+    }
+    while(esCadena(dato)==0);
+    return esDatoExito;
+}
+
+int esDia(char* texto)
+{
+    int dia;
+    int salir = 0;
+    do
+    {
+        printf("INGRESE DIA: ");
+        fflush(stdin);
+        scanf("%d",&dia);
+        if(dia<1 || dia>31)
+        {
+            printf("RE ");
         }
         else
         {
-            sePudo=1;
+            salir=1;
         }
-        i++;
     }
+    while(salir == 0);
+    return dia;
+}
 
-    return sePudo;
-}
-int esTelefono(char cadena[])
+int esMes(char* texto)
 {
-    int sePudo=0;
-    int i=0;
-    int cantidadGuiones=0;
-    while(cadena[i]!= '\0')
+    int mes;
+    int salir = 0;
+    do
     {
-        if((cadena[i]!=' ')&&(cadena[i]!='-')&&(cadena[i]<'0' || cadena[i]>'9'))
+        printf("INGRESE MES: ");
+        fflush(stdin);
+        scanf("%d",&mes);
+        if(mes<1 || mes>12)
         {
-            sePudo=0;
+            printf("RE ");
         }
-        if(cadena[i]=='-')
+        else
         {
-            cantidadGuiones++;
+            salir=1;
         }
-        i++;
     }
-    if(cantidadGuiones==1)
-    {
-        sePudo=1;
-    }
-    return sePudo;
+    while(salir == 0);
+    return mes;
 }
+
+int esAnio(char* texto)
+{
+    int anio;
+    int salir = 0;
+    do
+    {
+        printf("INGRESE ANIO: ");
+        fflush(stdin);
+        scanf("%d",&anio);
+        if(anio<1900 || anio>2050)
+        {
+            printf("RE ");
+        }
+        else
+        {
+            salir=1;
+        }
+    }
+    while(salir == 0);
+    return anio;
+}
+
+char esDatoSexo(char* texto)
+{
+    int salir=0;
+    char dato;
+    do
+    {
+        printf("INGRESE %s : ", texto);
+        fflush(stdin);
+        scanf("%c",&dato);
+        dato=tolower(dato);
+        if(dato == 'f'|| dato =='m' )
+        {
+            salir=1;
+        }
+        else
+        {
+            printf("RE ");
+        }
+    }
+    while(salir == 0);
+    return dato;
+}
+int esTelefono(char* dato, char* texto)
+{
+    int esDatoExito = 0;
+    int salir=0;
+    int cantidadChar=0;
+    int cantidadGuion = 0;
+    do
+    {
+        printf("INGRESE %s : ", texto);
+        fflush(stdin);
+        gets(dato);
+        for(int i = 0; i<(cantidadChar=strlen(dato)); i++)
+        {
+            if(dato[i]=='-')
+            {
+                cantidadGuion++;
+            }
+        }
+        if(cantidadGuion==0||cantidadGuion==1)
+        {
+            salir =1;
+            esDatoExito=1;
+        }
+        else
+        {
+            printf("RE ");
+        }
+    }
+    while(salir == 0);
+    return esDatoExito;
+}
+
+int esDatoEmail(char* dato, char* texto)
+{
+    int esDatoExito = 0;
+    int salir=0;
+    int cantidadChar=0;
+    int cantidadArrobas = 0;
+    int cantidadPuntos =0;
+    do
+    {
+        printf("INGRESE %s : ", texto);
+        fflush(stdin);
+        gets(dato);
+        for(int i = 0; i<(cantidadChar=strlen(dato)); i++)
+        {
+            if(dato[i]=='@')
+            {
+                cantidadArrobas++;
+            }
+            else if(dato[i]=='.')
+            {
+                cantidadPuntos++;
+            }
+        }
+        if(cantidadArrobas==1&&cantidadPuntos==1)
+        {
+            esDatoExito=1;
+            salir=1;
+        }
+        else
+        {
+            printf("RE ");
+            cantidadArrobas = 0;
+            cantidadPuntos = 0;
+        }
+    }
+    while(salir == 0);
+    return esDatoExito;
+}
+
+int esNumero(char* cadena)
+{
+    int i=0;
+    int j;
+    int realizoValidacion=0;
+
+    j=strlen(cadena);
+
+    while(i<j && realizoValidacion == 0)
+    {
+        if(isdigit(cadena[i])!=0)
+        {
+            i++;
+        }
+        else
+        {
+            realizoValidacion=1;
+        }
+    }
+    return realizoValidacion;
+}
+
+int esNumerico(char* numeros, char* texto)
+{
+    int esNumericoExito = 0;
+    do
+    {
+        printf("INGRESE %s : ", texto);
+        fflush(stdin);
+        gets(numeros);
+        if(esNumero(numeros)==1)
+        {
+            printf("RE ");
+        }
+        esNumericoExito = 1;
+    }
+    while(esNumero(numeros)==1);
+    return esNumericoExito;
+}
+
 
 int burbujeo(char cadena[], int largoCadena, char signo)
 {
@@ -234,7 +464,7 @@ int menu()
     system("cls");
     printf("BIENVENIDO AL TP NUMERO 3.\n\n");
     printf("1. CARGAR LOS DATOS DE LOS EMPLEADOS DESDE EL ARCHIVO data.csv (MODO TEXTO).\n");
-    printf("2. CARGAR LOS DATOS DE LOS EMPLEADOS DESDE EL ARCHIVO data.csv (MODO BINARIO).\n");
+    printf("2. CARGAR LOS DATOS DE LOS EMPLEADOS DESDE EL ARCHIVO data.bin (MODO BINARIO).\n");
     printf("3. ALTA DE EMPLEADO.\n");
     printf("4. MODIFICAR DATOS DE EMPLEADO.\n");
     printf("5. BAJA DE EMPLEADO.\n");
