@@ -115,4 +115,4 @@ int esNumerico(char* numeros, char* texto);
  *
  */
 int burbujeo(char cadena[],int largoCadena,char signo);
-int menu();
+int menu(LinkedList* lista);

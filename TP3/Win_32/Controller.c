@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include "Employee.h"
 #include "AxelUTN.h"
+#include "parser.h"
 
 ///SE ENCARGA DE IR DICIENDO LO QUE HAY QUE HACER..
 
@@ -91,15 +92,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
                         if(newEmpleado != NULL)
                         {
                             ll_add(pArrayListEmployee, newEmpleado);
-                            if(ll_add != NULL)
-                            {
-                                retorno = 1;
-                            }
-                            else
-                            {
-                                printf("LL_ADD ES NULL\n");
-                                system("pause");
-                            }
+                            retorno = 1;
                         }
                         else
                         {
@@ -338,7 +331,57 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int opcion;
+    int retorno;
+    LinkedList* auxLl = ll_clone(pArrayListEmployee);
+
+    system("cls");
+    opcion = getInt("METODOS DE ORDENAMIENTO.\n0.- Salir.\n1.- ORDENAR POR ID ASCENDENTE.\n2.- ORDENAR POR ID DESCENDENTE.\n3.- ORDENAR POR NOMBRE ASCENDENTE.\n4.- ORDENAR POR NOMBRE DESCENDENTE.\n5.- ORDENAR POR HORAS TRABAJADAS ASCENDENTE.\n6.- ORDENAR POR HORAS TRABAJADAS DESCENDENTE.\n7.- ORDENAR POR SUELDO ASCENDENTE.\n8.- ORDENAR POR SUELDO DESCENDENTE.\n\nOPCION: ");
+
+    switch(opcion)
+    {
+        case 1:
+            puts("ORDENANDO LISTA...");
+            retorno = ll_sort(auxLl, comparar_id, 1);
+            controller_ListEmployee(auxLl);
+            break;
+        case 2:
+            puts("ORDENANDO LISTA...");
+            retorno = ll_sort(auxLl, comparar_id, 0);
+            controller_ListEmployee(auxLl);
+            break;
+        case 3:
+            puts("ORDENANDO LISTA...");
+            retorno = ll_sort(auxLl, comparar_nombre, 1);
+            controller_ListEmployee(auxLl);
+            break;
+        case 4:
+            puts("ORDENANDO LISTA...");
+            retorno = ll_sort(auxLl, comparar_nombre, 0);
+            controller_ListEmployee(auxLl);
+            break;
+        case 5:
+            puts("ORDENANDO LISTA...");
+            retorno = ll_sort(auxLl, comparar_horariosTrabajados, 1);
+            controller_ListEmployee(auxLl);
+            break;
+        case 6:
+            puts("ORDENANDO LISTA...");
+            retorno = ll_sort(auxLl, comparar_horariosTrabajados, 0);
+            controller_ListEmployee(auxLl);
+            break;
+        case 7:
+            puts("ORDENANDO LISTA...");
+            retorno = ll_sort(auxLl, comparar_sueldo, 1);
+            controller_ListEmployee(auxLl);
+            break;
+        case 8:
+            puts("ORDENANDO LISTA...");
+            retorno = ll_sort(auxLl, comparar_sueldo, 0);
+            controller_ListEmployee(auxLl);
+            break;
+    }
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).

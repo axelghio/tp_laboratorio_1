@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "LinkedList.h"
 
 float sumar(float numeroX, float numeroY)
 {
@@ -151,7 +152,9 @@ float getFloatPositivo(const char* MSJ)
 
 int esLetra(char* letras)
 {
-    return esCadena(letras);
+    int retorno;
+    retorno = esCadena(letras);
+    return retorno;
 }
 int esCadena(char* cadena)
 {
@@ -458,11 +461,12 @@ int burbujeo(char cadena[], int largoCadena, char signo)
     }
     return retorno;
 }
-int menu()
+int menu(LinkedList* lista)
 {
     int opcion = 0;
     system("cls");
-    printf("BIENVENIDO AL TP NUMERO 3.\n\n");
+    printf("BIENVENIDO AL TP NUMERO 3.\t\t\t");
+    printf("CANTIDAD EN LISTA: %d\n\n", ll_len(lista));
     printf("1. CARGAR LOS DATOS DE LOS EMPLEADOS DESDE EL ARCHIVO data.csv (MODO TEXTO).\n");
     printf("2. CARGAR LOS DATOS DE LOS EMPLEADOS DESDE EL ARCHIVO data.bin (MODO BINARIO).\n");
     printf("3. ALTA DE EMPLEADO.\n");
@@ -477,3 +481,4 @@ int menu()
     scanf("%d", &opcion);
     return opcion;
 }
+
