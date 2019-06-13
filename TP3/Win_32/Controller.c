@@ -342,43 +342,51 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     {
         case 1:
             puts("ORDENANDO LISTA...");
-            retorno = ll_sort(auxLl, comparar_id, 1);
+            retorno = ll_sort(auxLl, comparar_id, 0);
             controller_ListEmployee(auxLl);
+            system("pause");
             break;
         case 2:
             puts("ORDENANDO LISTA...");
-            retorno = ll_sort(auxLl, comparar_id, 0);
+            retorno = ll_sort(auxLl, comparar_id, 1);
             controller_ListEmployee(auxLl);
+            system("pause");
             break;
         case 3:
             puts("ORDENANDO LISTA...");
             retorno = ll_sort(auxLl, comparar_nombre, 1);
             controller_ListEmployee(auxLl);
+            system("pause");
             break;
         case 4:
             puts("ORDENANDO LISTA...");
             retorno = ll_sort(auxLl, comparar_nombre, 0);
             controller_ListEmployee(auxLl);
+            system("pause");
             break;
         case 5:
             puts("ORDENANDO LISTA...");
-            retorno = ll_sort(auxLl, comparar_horariosTrabajados, 1);
+            retorno = ll_sort(auxLl, comparar_horariosTrabajados, 0);
             controller_ListEmployee(auxLl);
+            system("pause");
             break;
         case 6:
             puts("ORDENANDO LISTA...");
-            retorno = ll_sort(auxLl, comparar_horariosTrabajados, 0);
+            retorno = ll_sort(auxLl, comparar_horariosTrabajados, 1);
             controller_ListEmployee(auxLl);
+            system("pause");
             break;
         case 7:
             puts("ORDENANDO LISTA...");
-            retorno = ll_sort(auxLl, comparar_sueldo, 1);
+            retorno = ll_sort(auxLl, comparar_sueldo, 0);
             controller_ListEmployee(auxLl);
+            system("pause");
             break;
         case 8:
             puts("ORDENANDO LISTA...");
-            retorno = ll_sort(auxLl, comparar_sueldo, 0);
+            retorno = ll_sort(auxLl, comparar_sueldo, 1);
             controller_ListEmployee(auxLl);
+            system("pause");
             break;
     }
     return retorno;
