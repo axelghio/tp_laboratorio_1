@@ -84,30 +84,31 @@
 	<stdio.h>
 	"Employee.h"
 
-1560210180 source:c:\users\axel\desktop\tp3\win_32\axelutn.c
+1560396527 source:c:\users\axel\desktop\tp3\win_32\axelutn.c
 	<stdio.h>
 	<stdint.h>
 	<string.h>
 	<stdlib.h>
 	<ctype.h>
+	"LinkedList.h"
 
-1560209201 source:c:\users\axel\desktop\tp3\win_32\employee.c
+1560396527 source:c:\users\axel\desktop\tp3\win_32\employee.c
 	<stdlib.h>
 	<string.h>
 	<stdio.h>
 	"Employee.h"
 
-1559747303 c:\users\axel\desktop\tp3\win_32\employee.h
+1560396527 c:\users\axel\desktop\tp3\win_32\employee.h
 
-1560210677 source:c:\users\axel\desktop\tp3\win_32\parser.c
+1560396527 source:c:\users\axel\desktop\tp3\win_32\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
 	"Employee.h"
 
-1559747303 c:\users\axel\desktop\tp3\win_32\linkedlist.h
+1560396527 c:\users\axel\desktop\tp3\win_32\linkedlist.h
 
-1560119557 source:c:\users\axel\desktop\tp3\win_32\main.c
+1560396527 source:c:\users\axel\desktop\tp3\win_32\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -115,13 +116,16 @@
 	"Controller.h"
 	"Employee.h"
 
-1559747303 c:\users\axel\desktop\tp3\win_32\controller.h
+1560396527 c:\users\axel\desktop\tp3\win_32\controller.h
 
-1560211696 source:c:\users\axel\desktop\tp3\win_32\controller.c
+1560566977 source:c:\users\axel\desktop\tp3\win_32\controller.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"LinkedList.h"
 	"Employee.h"
+	"AxelUTN.h"
+	"parser.h"
 
 1560395646 source:c:\users\axel\desktop\tps laboratorio 1\tp3\win_32\axelutn.c
 	<stdio.h>
@@ -168,4 +172,8 @@
 1560395377 c:\users\axel\desktop\tps laboratorio 1\tp3\win_32\axelutn.h
 
 1559747303 c:\users\axel\desktop\tps laboratorio 1\tp3\win_32\parser.h
+
+1560396527 c:\users\axel\desktop\tp3\win_32\axelutn.h
+
+1560396527 c:\users\axel\desktop\tp3\win_32\parser.h
 

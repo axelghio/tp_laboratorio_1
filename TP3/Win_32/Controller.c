@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "LinkedList.h"
 #include "Employee.h"
 #include "AxelUTN.h"
@@ -68,6 +69,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
+    int flag = 0;
     Employee* newEmpleado;
     char auxIdChar[20];
     char auxNombre[20], auxHoras[20], auxSueldo[20];
@@ -75,35 +77,54 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
     if(pArrayListEmployee != NULL)
     {
-        printf("INGRESE ID: ");
-        fflush(stdin);
-        gets(auxIdChar);
-
-        if(esDato(auxNombre, "NOMBRE")==1)
+        do
         {
-            if(esNumerico(auxHoras, "HORAS TRABAJADAS")==1)
+            flag = 0;
+            printf("INGRESE ID: ");
+            fflush(stdin);
+            gets(auxIdChar);
+            for(int i = 0; i< ll_len(pArrayListEmployee);i++)
             {
-                if(esNumerico(auxSueldo,"SUELDO")== 1)
+                newEmpleado = ll_get(pArrayListEmployee, i);
+                if(newEmpleado->id == atoi(auxIdChar))
                 {
-                    newEmpleado = employee_new();
-                    if(newEmpleado != NULL)
+                    printf("YA EXISTE UN USUARIO CON ESE ID.\n");
+                    system("pause");
+                    system("cls");
+                    printf("RE ");
+                    flag = 1;
+                    break;
+                }
+            }
+        }while(flag==1);
+        if(flag == 0)
+        {
+            if(esDato(auxNombre, "NOMBRE")==1)
+            {
+                if(esNumerico(auxHoras, "HORAS TRABAJADAS")==1)
+                {
+                    if(esNumerico(auxSueldo,"SUELDO")== 1)
                     {
-                        newEmpleado = employee_newParametros(auxIdChar, auxNombre, auxHoras, auxSueldo);
+                        newEmpleado = employee_new();
                         if(newEmpleado != NULL)
                         {
-                            ll_add(pArrayListEmployee, newEmpleado);
-                            retorno = 1;
+                            newEmpleado = employee_newParametros(auxIdChar, auxNombre, auxHoras, auxSueldo);
+                            if(newEmpleado != NULL)
+                            {
+                                ll_add(pArrayListEmployee, newEmpleado);
+                                retorno = 1;
+                            }
+                            else
+                            {
+                                printf("EMPLOYEE_NEWPARAMETROS ES NULL\n");
+                                system("pause");
+                            }
                         }
                         else
                         {
-                            printf("EMPLOYEE_NEWPARAMETROS ES NULL\n");
+                            printf("EMPLOYEE_NEW ES NULL\n");
                             system("pause");
                         }
-                    }
-                    else
-                    {
-                        printf("EMPLOYEE_NEW ES NULL\n");
-                        system("pause");
                     }
                 }
             }
